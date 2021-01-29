@@ -35,30 +35,19 @@ public class GetPlantListController {
 
 			ArrayList<GetPlant> result = new ArrayList<GetPlant>();
 
-			stmt = conn.prepareStatement("SELECT plantID, plantName FROM plants");
+			stmt = conn.prepareStatement("SELECT plants.plantID, plantName, wateringInterval, lastWatered " +
+											 "FROM plants " +
+											 "INNER JOIN plantstate ON plants.plantID=plantstate.plantID");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				String plantID = rs.getString(1);
 				String plantName = rs.getString(2);
-				Integer wateringInterval = null;
-				Timestamp lastWatered = null;
+				Integer wateringInterval = rs.getInt(3);
+				Timestamp lastWatered = rs.getTimestamp(4);
 
-				PreparedStatement stmtTemp = conn.prepareStatement(
-						"SELECT wateringInterval, lastWatered FROM plantstate WHERE plantID=?");
-				stmtTemp.setString(1, plantID);
-				ResultSet rsTemp = stmtTemp.executeQuery();
-
-				while (rsTemp.next()) {
-					wateringInterval = rsTemp.getInt(1);
-					lastWatered = rsTemp.getTimestamp(2);
-				}
-
-				GetPlant plant = new GetPlant(plantName, wateringInterval, lastWatered);
+				GetPlant plant = new GetPlant(plantID, plantName, wateringInterval, lastWatered);
 				result.add(plant);
-
-				rsTemp.close();
-				stmtTemp.close();
 			}
 
 			rs.close();

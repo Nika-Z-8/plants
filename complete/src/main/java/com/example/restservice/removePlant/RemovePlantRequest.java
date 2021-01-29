@@ -6,15 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Timestamp;
 
 public class RemovePlantRequest {
-    private final String plantName;
+    private final String plantID;
 
     @JsonCreator
-    public RemovePlantRequest(@JsonProperty("plantName") String plantName) {
-        this.plantName = plantName;
+    public RemovePlantRequest(@JsonProperty("plantID") String plantID) {
+        this.plantID = plantID;
     }
 
-    public String getPlantName() {
-        return plantName;
+    public String getPlantID() {
+        return plantID;
     }
 }
 

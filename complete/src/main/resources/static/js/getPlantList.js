@@ -22,7 +22,7 @@ class PlantPanel extends React.Component {
         $.ajax({
                 type: 'POST',
                 url: 'removePlant',
-                data: JSON.stringify({plantName: this.props.plantName}),
+                data: JSON.stringify({plantID: this.props.plantID}),
                 success: function(response) {alert(response.message);},
                 contentType: 'application/json',
                 dataType: 'json'
@@ -48,7 +48,8 @@ class PlantList extends React.Component {
         return (
             <div>
                 {plantList.map((plant) =>
-                    <PlantPanel plantName={plant.plantName}
+                    <PlantPanel plantID={plant.plantID}
+                                plantName={plant.plantName}
                                 wateringInterval={plant.wateringInterval}
                                 lastWatered={plant.lastWatered}
                     />

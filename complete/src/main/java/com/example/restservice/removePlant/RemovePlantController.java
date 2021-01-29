@@ -18,13 +18,7 @@ public class RemovePlantController {
 	static final String USER = "appuser";
 	static final String PASS = "app";
 
-	/**
-	 *
-	 * @param plantName
-	 * @return plantID
-	 * @throws Exception
-	 */
-	public static String removePlantFromDB(String plantName) throws Exception {
+	public static String removePlantFromDB(String plantID) throws Exception {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -34,21 +28,6 @@ public class RemovePlantController {
 		try {
 			// Register JDBC driver
 			Class.forName(JDBC_DRIVER);
-
-			String plantID = "";
-
-			// get plantID
-			stmt = conn.prepareStatement("SELECT plantID FROM plants WHERE plantName=?");
-			stmt.setString(1, plantName);
-
-			ResultSet rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				plantID = rs.getString(1);
-			}
-
-			rs.close();
-			stmt.close();
 
 			// delete from plants
 			stmt = conn.prepareStatement("DELETE FROM plants WHERE plantID=?");
@@ -95,7 +74,7 @@ public class RemovePlantController {
 	@PostMapping("/removePlant")
 	public RemovePlantResponse removePlant(@RequestBody RemovePlantRequest request) {
 		try {
-			return new RemovePlantResponse(removePlantFromDB(request.getPlantName()));
+			return new RemovePlantResponse(removePlantFromDB(request.getPlantID()));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
