@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="/js/addPlant.js" type="text/babel"></script>
+</head>
+<body>
+<form id="addPlant" onsubmit="return false">
+    <p><label for="plantName">Plant name:</label></p>
+    <input type="text" id="plantName" name="plantName" required>
+
+    <p><label for="wateringInterval">Watering interval (days):</label></p>
+    <input type="number" id="wateringInterval" name="wateringInterval" step="1" min="0" required>
+
+    <p>Have you watered this plant already?</p>
+    <input type="radio" name="watered" value="yes" required>Yes
+    <br>
+    <input type="radio" name="watered" value="no" required>No
+
+    <p><label for="lastWatered">If so, when did you last water it?</label></p>
+    <input type="datetime-local" id="lastWatered" name="lastWatered">
+
+    <p><label for="nextWatering">If not, when do you plan to water it?</label></p>
+    <input type="datetime-local" id="nextWatering" name="nextWatering">
+
+    <p><button onclick="addPlant()">Add plant</button></p>
+</form>
+<div id="messagePlaceholder"></div>
+</body>
+</html>
